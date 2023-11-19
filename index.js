@@ -1,15 +1,16 @@
 const express = require('express');
-const adminRouter = require('./adminRouter');
 const PORT = 3000;
 
 const app = express();
+app.use(express.json());
 
-app.set('view engine', 'ejs');
+// handle error
+function errorHandler(err, req, res, next) {
+	if (res.headersSent) {
+		return next(err);
+	}
 
-app.get('/about', (req, res) => {
-	res.render('pages/about', { name: 'Naiem' });
-});
-
-app.use('/admin', adminRouter);
+	res.status(500).json({ error: err });
+}
 
 app.listen(PORT);
