@@ -9,9 +9,12 @@ const todoSchema = mongoose.Schema({
 	status: {
 		type: String,
 		enum: ['active', 'inactive'],
+		required: true,
 	},
 	date: {
 		type: Date,
-		default: Date.now(),
+		default: Date.now,
 	},
 });
+
+module.exports = todoSchema;
