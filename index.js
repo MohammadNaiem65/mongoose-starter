@@ -1,27 +1,12 @@
 const express = require('express');
-const cookieParser = require('cookie-parser');
+const PORT = 3000;
 
 const app = express();
 
-// app.use(express.json());
-app.use(express.raw());
-app.use(cookieParser());
+app.set('view engine', 'ejs');
 
-app.post('/', (req, res) => {
-	// console.log(req.body);
-	// console.log(req.body.toString());
-	// console.log(app.mountpath);
-	console.log(req.cookies);
-	res.send('Hello World!');
+app.get('/about', (req, res) => {
+	res.render('pages/about', { name: 'Naiem' });
 });
 
-// application methods
-const admin = express();
-app.use('/admin', admin);
-
-admin.post('/', (req, res) => {
-	console.log(req.baseUrl);
-	res.send('Success');
-});
-
-app.listen(3000);
+app.listen(PORT);
