@@ -1,3 +1,4 @@
+const fs = require('fs');
 const express = require('express');
 const mongoose = require('mongoose');
 const todoSchema = require('../schemas/todoSchema');
@@ -5,7 +6,17 @@ const router = express.Router();
 const Todo = new mongoose.model('Todo', todoSchema);
 
 // get all the todos
-router.get('/', async (req, res) => {});
+router.get('/', async (req, res, next) => {
+	// handle async errors
+	fs.readFile('/file-does-not-exist', (err, data) => {
+		if (err) {
+			console.log(err.message);
+			next(err);
+		} else {
+			res.send(data);
+		}
+	});
+});
 
 // get single todo
 router.get('/:id', async (req, res) => {});

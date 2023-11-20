@@ -10,9 +10,7 @@ mongoose
 	.connect(
 		'mongodb+srv://mohammadnaiem:wANWCZjjCJ2bQDmR@cluster0.mubo8fr.mongodb.net/?retryWrites=true&w=majority'
 	)
-	.then(() => {
-		console.log('Connection established');
-	})
+	.then(() => console.log('Connected'))
 	.catch((err) => console.log(err));
 
 // application routes
