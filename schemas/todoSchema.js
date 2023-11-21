@@ -15,6 +15,10 @@ const todoSchema = mongoose.Schema({
 		type: Date,
 		default: Date.now,
 	},
+	related: {
+		type: [mongoose.SchemaTypes.ObjectId],
+		ref: 'Todo',
+	},
 });
 
 module.exports = todoSchema;
