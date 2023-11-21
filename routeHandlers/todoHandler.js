@@ -5,7 +5,26 @@ const router = express.Router();
 const Todo = new mongoose.model('Todo', todoSchema);
 
 // get all the todos
-router.get('/', async (req, res, next) => {});
+router.get('/', async (req, res, next) => {
+	res.send('hello');
+});
+
+// get active todos
+router.get('/active', async (req, res) => {
+	const todo = new Todo();
+	console.log('object');
+
+	const result = await todo.findActiveTodos();
+	res.send(result);
+
+	todo.findActiveTodos((err, todos) => {
+		if (err) {
+			res.status(500).send(err.message);
+		} else {
+			res.send(todos);
+		}
+	});
+});
 
 // get single todo
 router.get('/:id', async (req, res) => {});
