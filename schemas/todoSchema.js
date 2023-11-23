@@ -32,12 +32,14 @@ const todoSchema = mongoose.Schema(
 
 todoSchema.methods = {
 	findActiveTodos: function () {
-		return mongoose.model('Todo').find({status: 'inactive'})
+		return mongoose.model('Todo').find({status: 'active'})
 	},
 };
 
-// todoSchema.method('findActiveTodos', function () {
-// 	return mongoose.model('Todo').find({ status: 'active' });
-// });
+todoSchema.statics = {
+	findActiveTodos: function (keyword) {
+		return this.find({ status: 'active' });
+	}
+}
 
 module.exports = todoSchema;
