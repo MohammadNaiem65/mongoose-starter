@@ -26,4 +26,23 @@ router.post('/signup', async (req, res) => {
 	}
 });
 
+router.post('/login', async (req, res) => {
+	try {
+		const userList = await User.find({ username: 'চুলতানা' });
+
+		if (userList[0]) {
+			const isValidUser = await bcrypt.compare(
+				req.body.password,
+				userList[0].password
+			);
+
+			
+		} else {
+			res.status(401).json({ error: 'Authentication failed.' });
+		}
+	} catch {
+		res.status(401).json({ error: 'Authentication failed.' });
+	}
+});
+
 module.exports = router;
