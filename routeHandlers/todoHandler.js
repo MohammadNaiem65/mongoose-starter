@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const todoSchema = require('../schemas/todoSchema');
+
 const router = express.Router();
 const Todo = new mongoose.model('Todo', todoSchema);
 
@@ -26,9 +27,6 @@ router.get('/active', async (req, res) => {
 	});
 });
 
-// get single todo
-router.get('/:id', async (req, res) => {});
-
 // add multiple todos
 router.post('/all', async (req, res) => {
 	try {
@@ -50,6 +48,13 @@ router.post('/', async (req, res) => {
 		res.status(500).send(error.message);
 	}
 });
+
+router.get('/search', async (req, res) => {
+	const result = await Todo.where
+});
+
+// get single todo
+router.get('/:id', async (req, res) => {});
 
 // update single todo
 router.put('/:id', async (req, res) => {});
