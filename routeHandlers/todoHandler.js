@@ -1,17 +1,19 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const todoSchema = require('../schemas/todoSchema');
+const checkLogin = require('../middlewares/checkLogin');
 
 const router = express.Router();
 const Todo = new mongoose.model('Todo', todoSchema);
 
 // get all the todos
-router.get('/', async (req, res, next) => {
+router.get('/', checkLogin, async (req, res, next) => {
+	console.log(req.username, req.userId);
 	res.send('hello');
 });
 
 // get active todos
-router.get('/active', async (req, res) => {
+router.get('/active', checkLogin, async (req, res) => {
 	const todo = new Todo();
 	console.log('object');
 
@@ -50,7 +52,7 @@ router.post('/', async (req, res) => {
 });
 
 router.get('/search', async (req, res) => {
-	const result = await Todo.where
+	const result = await Todo.where;
 });
 
 // get single todo
