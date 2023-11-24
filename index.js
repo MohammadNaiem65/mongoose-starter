@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+require('dotenv').config();
 const userHandler = require('./routeHandlers/userHandler');
 const todoHandler = require('./routeHandlers/todoHandler');
 const PORT = 3000;
@@ -9,7 +10,7 @@ app.use(express.json());
 
 mongoose
 	.connect(
-		'mongodb+srv://mohammadnaiem:wANWCZjjCJ2bQDmR@cluster0.mubo8fr.mongodb.net/?retryWrites=true&w=majority'
+		`mongodb+srv://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@cluster0.mubo8fr.mongodb.net/?retryWrites=true&w=majority`
 	)
 	.then(() => console.log('Connected'))
 	.catch((err) => console.log(err));

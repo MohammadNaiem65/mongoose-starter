@@ -1,6 +1,7 @@
 const express = require('express');
-const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const userSchema = require('../schemas/userSchema');
 
 const router = express.Router();
@@ -26,6 +27,7 @@ router.post('/signup', async (req, res) => {
 	}
 });
 
+// login route
 router.post('/login', async (req, res) => {
 	try {
 		const userList = await User.find({ username: 'চুলতানা' });
@@ -36,7 +38,20 @@ router.post('/login', async (req, res) => {
 				userList[0].password
 			);
 
-			
+			if (isValidUser) {
+				// generate access token
+				const token = jwt.sign(
+					{
+						username: userList[0].username,
+						userId: userList[0]._id,
+					},
+					process.env.JWT_SIGN,
+					{ expiresIn: '1h' }
+				);
+				res.send({ access_token: token, message: 'Login successful.' });
+			} else {
+				res.status(401).json({ error: 'Authentication failed.' });
+			}
 		} else {
 			res.status(401).json({ error: 'Authentication failed.' });
 		}
